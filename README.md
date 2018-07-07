@@ -33,9 +33,9 @@ exploit  hen  jkpatch  ps4-payload-sdk
 
 ### exploit
 
-Contains Cryptogenic's browser exploit (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L63).
+Contains Cryptogenic's browser exploit (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L68).
 
-The vagrant box has been configured to use the hen from the original source when running this exploit (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L68)
+The vagrant box has been configured to use the hen from the original source when running this exploit (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L73)
 
 #### start server
 
@@ -57,7 +57,7 @@ Serving HTTP on 0.0.0.0 port 8080 ...
 
 ### hen
 
-Contains xvortex's homebrew enabler (aka hen) (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L38).
+Contains xvortex's homebrew enabler (aka hen) (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L41).
 
 #### start server
 
@@ -82,7 +82,7 @@ vagrant@ubuntu-xenial:~$ PS4IP=192.168.1.107 hen/send.sh
 
 ### jkpatch
 
-Contains withmetta's fork of the xemio's jkpatch (it is the one that seems to work properly for 5.05) (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L52).
+Contains withmetta's fork of the xemio's jkpatch (it is the one that seems to work properly for 5.05) (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L56).
 
 #### send payload
 
