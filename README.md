@@ -28,14 +28,14 @@ After you've got it running and are inside an ssh session to it, you will be abl
 
 ```
 vagrant@ubuntu-xenial:~$ ls
-exploit  hen  jkpatch  ps4-payload-sdk
+exploit  hen  jkpatch  mira  ps4-payload-sdk
 ```
 
 ### exploit
 
-Contains Cryptogenic's browser exploit (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L68).
+Contains Cryptogenic's browser exploit (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L70).
 
-The vagrant box has been configured to use the hen from the original source when running this exploit (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L73)
+The vagrant box has been configured to use the hen and mira from the original source when running this exploit (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L72, https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L73)
 
 #### start server
 
@@ -43,7 +43,7 @@ You can start an HTTP server for it by running the `serve.sh` script inside this
 (e.g: if the computer you're using has the IP `192.168.0.2` and the PS4 is on the same network, you can type in the PS4 browser: `http://192.168.0.2:8080` to access it).
 
 ```
-vagrant@ubuntu-xenial:~$ exploit/serve.sh 
+vagrant@ubuntu-xenial:~$ exploit/serve.sh
 ~/exploit ~
 Serving HTTP on 0.0.0.0 port 8080 ...
 10.0.2.2 - - [05/Jul/2018 22:07:30] "GET / HTTP/1.1" 200 -
@@ -57,7 +57,7 @@ Serving HTTP on 0.0.0.0 port 8080 ...
 
 ### hen
 
-Contains xvortex's homebrew enabler (aka hen) (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L41).
+Contains xvortex's homebrew enabler (aka hen) (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L39).
 
 #### start server
 
@@ -65,7 +65,7 @@ You can start an HTTP server for it by running the `serve.sh` script inside this
 (e.g: if the computer you're using has the IP `192.168.0.2` and the PS4 is on the same network, you can type in the PS4 browser: `http://192.168.0.2:8080` to access it).
 
 ```
-vagrant@ubuntu-xenial:~$ hen/serve.sh 
+vagrant@ubuntu-xenial:~$ hen/serve.sh
 ~/hen/exploit ~
 Serving HTTP on 0.0.0.0 port 8080 ...
 10.0.2.2 - - [05/Jul/2018 22:17:10] "GET / HTTP/1.1" 200 -
@@ -77,12 +77,12 @@ If you're running the exploit and is `Awaiting Payload`, you can send it by runn
 You can specify the PS4 IP using the environment variable `PS4IP`.
 
 ```
-vagrant@ubuntu-xenial:~$ PS4IP=192.168.1.107 hen/send.sh 
+vagrant@ubuntu-xenial:~$ PS4IP=192.168.1.107 hen/send.sh
 ```
 
 ### jkpatch
 
-Contains withmetta's fork of the xemio's jkpatch (it is the one that seems to work properly for 5.05) (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L56).
+Contains withmetta's fork of the xemio's jkpatch (it is the one that seems to work properly for 5.05) (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L61).
 
 #### send payload
 
@@ -90,5 +90,18 @@ If you're running the exploit and is `Awaiting Payload`, you can send it by runn
 You can specify the PS4 IP using the environment variable `PS4IP`.
 
 ```
-vagrant@ubuntu-xenial:~$ PS4IP=192.168.1.107 jkpatch/send.sh 
+vagrant@ubuntu-xenial:~$ PS4IP=192.168.1.107 jkpatch/send.sh
+```
+
+### mira
+
+Contains The Mira Project from OpenOrbis (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L47).
+
+#### send payload
+
+If you're running the exploit and is `Awaiting Payload`, you can send it by running the `send.sh` script inside this directory.
+You can specify the PS4 IP using the environment variable `PS4IP`.
+
+```
+vagrant@ubuntu-xenial:~$ PS4IP=192.168.1.107 mira/send.sh
 ```
