@@ -7,7 +7,10 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 8080, host: 8080
 
   config.vm.provision "shell", inline: <<-SHELL
-echo "PS4IP=192.168.1.107" >> /etc/environment
+export PS4IP=192.168.1.107
+echo "PS4IP=${PS4IP}" >> /etc/environment
+export PCIP=192.168.1.3
+echo "PCIP=${PCIP}" >> /etc/environment
 
 apt-get update
 
@@ -20,7 +23,7 @@ apt-get install -y git
 wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
 apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main"
 apt -o Acquire::AllowInsecureRepositories=true update
-apt-get install -y clang-3.9 lldb-3.9 binutils make gcc
+apt-get install -y clang-3.9 lldb-3.9 binutils make gcc libreadline-dev libncurses5-dev libncursesw5-dev
 ln -s /usr/bin/clang-3.9 /usr/bin/clang
 
 export HOME=/home/vagrant
@@ -89,6 +92,16 @@ echo "PS4DEV=${PS4DEV}" >> /etc/environment
 mkdir -p ${PS4DEV}
 cd ${PS4SDK}
 chmod +x install.sh; ./install.sh
+
+export PS4LINK=${HOME}/ps4link
+git clone https://github.com/psxdev/ps4link.git ${PS4LINK}; cd ${PS4LINK}; git reset --hard 36f9eef1908d238a21fa2ac159c0d84183e7c1a4
+sed -i -e "s/dst_ip\\[16\\] = \\".*\\"/dst_ip[16] = \\"${PS4IP}\\"/" ${PS4LINK}/ps4sh/src/ps4sh.c
+sed -i -e "s/ps4LinkInit(\\".*\\"/ps4LinkInit(\\"${PCIP}\\"/" ${PS4LINK}/ps4link/source/main.c
+cd ${PS4LINK}/elf-loader
+./copy_ps4link_sources.sh
+make clean; make
+cd ${PS4LINK}/ps4sh
+make
 
 export PS4PSDK=${HOME}/ps4-payload-sdk
 echo "PS4PSDK=${PS4PSDK}" >> /etc/environment
