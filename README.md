@@ -28,7 +28,7 @@ After you've got it running and are inside an ssh session to it, you will be abl
 
 ```
 vagrant@ubuntu-xenial:~$ ls
-exploit  hen  jkpatch  mira  ps4-payload-sdk
+exploit  hen  jkpatch  liborbis  mira  ps4-payload-sdk  ps4sdk
 ```
 
 ### exploit
