@@ -84,6 +84,12 @@ cd liborbisKeyboard
 make
 make install
 
+export PS4DEV=${HOME}/ps4dev
+echo "PS4DEV=${PS4DEV}" >> /etc/environment
+mkdir -p ${PS4DEV}
+cd ${PS4SDK}
+chmod +x install.sh; ./install.sh
+
 export PS4PSDK=${HOME}/ps4-payload-sdk
 echo "PS4PSDK=${PS4PSDK}" >> /etc/environment
 # https://github.com/stooged/ps4-payload-sdk
@@ -111,8 +117,7 @@ git clone --recurse-submodules https://github.com/OpenOrbis/mira-project.git ${M
 find . -type f -exec sed -i 's/PS4SDK/PS4PSDK/g' {} +
 echo -e "#\x21/bin/bash\nsocat -u FILE:${MIRA_BIN} TCP:\\${PS4IP}:9020" > send.sh; chmod +x send.sh
 cd ${MIRA}/Scripts
-chmod +x init_development_environment.sh
-echo "1" | ./init_development_environment.sh
+chmod +x init_development_environment.sh; echo "1" | ./init_development_environment.sh
 cp ${MIRA_BIN} /vagrant/mira.bin
 
 apt-get install -y nasm
