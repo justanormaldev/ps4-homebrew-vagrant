@@ -28,14 +28,50 @@ After you've got it running and are inside an ssh session to it, you will be abl
 
 ```
 vagrant@ubuntu-xenial:~$ ls
-exploit  hen  jkpatch  liborbis  mira  ps4dev  ps4-payload-sdk  ps4sdk
+exploit  hen  jkpatch  liborbis  mira  ps4dev  ps4link  ps4-payload-sdk  ps4sdk
 ```
+
+### liborbis
+
+Contains orbisdev's libraries and samples.
+
+#### to run modplayer sample
+
+- install and start [the orbislink pkg](https://github.com/justanormaldev/ps4-homebrew-vagrant/raw/148ce861059ea235d4215ef7ffe56b5368b55d8a/orbislink.pkg) in your PS4.
+- inside a ssh session to the vagrant box, run:
+```
+vagrant@ubuntu-xenial:~$ cd ~/liborbis/samples/modplayer/bin/
+vagrant@ubuntu-xenial:~/liborbis/samples/modplayer/bin$ ls
+homebrew.elf  zweifeld.mod
+vagrant@ubuntu-xenial:~/liborbis/samples/modplayer/bin$ ps4sh
+ps4sh version 1.0
+/home/vagrant/.ps4shrc: No such file or directory
+
+log: [HOST][INFO]: [PS4SH] Ready
+ps4sh> connect
+log: [HOST][INFO]: [PS4SH] Connecting to fio ps4link ip 192.168.1.107
+log: [HOST][INFO]: [PS4SH] PlayStation is listening at 192.168.1.107
+log: [HOST][DEBUG]: [PS4SH] Opening homebrew.elf flags 0
+log: [HOST][DEBUG]: [PS4SH] Open return 7
+log: [HOST][DEBUG]: [PS4SH] 659552 result of lseek 0 offset 2 whence
+log: [HOST][DEBUG]: [PS4SH] 0 result of lseek 0 offset 0 whence
+log: [HOST][DEBUG]: [PS4SH] Opening zweifeld.mod flags 0
+log: [HOST][DEBUG]: [PS4SH] Open return 7
+log: [HOST][DEBUG]: [PS4SH] 34148 result of lseek 0 offset 2 whence
+log: [HOST][DEBUG]: [PS4SH] 0 result of lseek 0 offset 0 whence
+log: [HOST][DEBUG]: [PS4SH] read 34148 bytes of file descritor 7
+ps4sh>
+```
+
+If you wish to experiment with the source:
+- edit `~/liborbis/samples/modplayer/source/main.c`
+- rebuild by running `cd ~/liborbis/samples/modplayer; make`
 
 ### exploit
 
-Contains Cryptogenic's browser exploit (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L70).
+Contains Cryptogenic's browser exploit.
 
-The vagrant box has been configured to use the hen and mira from the original source when running this exploit (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L72, https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L73)
+The vagrant box has been configured to use the hen and mira from the original source when running this exploit.
 
 #### start server
 
@@ -57,7 +93,7 @@ Serving HTTP on 0.0.0.0 port 8080 ...
 
 ### hen
 
-Contains xvortex's homebrew enabler (aka hen) (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L39).
+Contains xvortex's homebrew enabler (aka hen).
 
 #### start server
 
@@ -82,7 +118,7 @@ vagrant@ubuntu-xenial:~$ PS4IP=192.168.1.107 hen/send.sh
 
 ### jkpatch
 
-Contains withmetta's fork of the xemio's jkpatch (it is the one that seems to work properly for 5.05) (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L61).
+Contains withmetta's fork of the xemio's jkpatch (it is the one that seems to work properly for 5.05).
 
 #### send payload
 
@@ -95,7 +131,7 @@ vagrant@ubuntu-xenial:~$ PS4IP=192.168.1.107 jkpatch/send.sh
 
 ### mira
 
-Contains The Mira Project from OpenOrbis (https://github.com/justanormaldev/ps4-homebrew-vagrant/blob/master/Vagrantfile#L47).
+Contains The Mira Project from OpenOrbis.
 
 #### send payload
 

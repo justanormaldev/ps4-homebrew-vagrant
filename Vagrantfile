@@ -87,6 +87,10 @@ cd liborbisKeyboard
 make
 make install
 
+cd ${LIBORBIS}/samples/modplayer
+make
+wget -O - https://api.modarchive.org/downloads.php?moduleid=179048#estrayk_-_zweifeld.mod > ${LIBORBIS}/samples/modplayer/bin/zweifeld.mod
+
 export PS4DEV=${HOME}/ps4dev
 echo "PS4DEV=${PS4DEV}" >> /etc/environment
 mkdir -p ${PS4DEV}
@@ -102,6 +106,7 @@ cd ${PS4LINK}/elf-loader
 make clean; make
 cd ${PS4LINK}/ps4sh
 make
+ln -s ${PS4LINK}/ps4sh/bin/ps4sh /usr/bin/ps4sh
 
 export PS4PSDK=${HOME}/ps4-payload-sdk
 echo "PS4PSDK=${PS4PSDK}" >> /etc/environment
