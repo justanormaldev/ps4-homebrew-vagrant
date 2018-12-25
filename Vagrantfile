@@ -2,14 +2,16 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
+  PCIP = "192.168.1.123"
   config.vm.box = "ubuntu/xenial64"
 
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.network "public_network", ip: PCIP
 
   config.vm.provision "shell", inline: <<-SHELL
-export PS4IP=192.168.1.107
+export PS4IP=192.168.1.2
 echo "PS4IP=${PS4IP}" >> /etc/environment
-export PCIP=192.168.1.3
+export PCIP=#{PCIP}
+echo "PCIP=${PCIP}"
 echo "PCIP=${PCIP}" >> /etc/environment
 
 apt-get update
@@ -23,7 +25,7 @@ apt-get install -y git
 wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
 apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main"
 apt -o Acquire::AllowInsecureRepositories=true update
-apt-get install -y clang-3.9 lldb-3.9 binutils make gcc libreadline-dev libncurses5-dev libncursesw5-dev
+apt-get install -y clang-3.9 lldb-3.9 llvm binutils make gcc libreadline-dev libncurses5-dev libncursesw5-dev
 ln -s /usr/bin/clang-3.9 /usr/bin/clang
 
 export HOME=/home/vagrant
@@ -130,13 +132,14 @@ echo -e "#\x21/bin/bash\npushd ${HEN}/exploit\npython -m SimpleHTTPServer 8080\n
 cp ${HEN_BIN} /vagrant/hen.bin
 
 export MIRA=${HOME}/mira
-export MIRA_BIN=${MIRA}/Firmware/MiraFW/MiraFW_Orbis.bin
-git clone --recurse-submodules https://github.com/OpenOrbis/mira-project.git ${MIRA}; cd ${MIRA}; git reset --hard 71edaa1263ecade71ac093ee509ac5caf97a5ca3
-find . -type f -exec sed -i 's/PS4SDK/PS4PSDK/g' {} +
+export MIRA_BIN=${MIRA}/Firmware/MiraFW/MiraFW_Orbis_ONI_PLATFORM_ORBIS_BSD_505.bin
+export MIRA_ELF=${MIRA}/Firmware/MiraFW/MiraFW_Orbis_ONI_PLATFORM_ORBIS_BSD_505.elf
+git clone --recurse-submodules https://github.com/OpenOrbis/mira-project.git ${MIRA}
+cd ${MIRA}
 echo -e "#\x21/bin/bash\nsocat -u FILE:${MIRA_BIN} TCP:\\${PS4IP}:9020" > send.sh; chmod +x send.sh
-cd ${MIRA}/Scripts
-chmod +x init_development_environment.sh; echo "1" | ./init_development_environment.sh
+chmod +x ./Scripts/init_development_environment.sh; echo "7" | ./Scripts/init_development_environment.sh
 cp ${MIRA_BIN} /vagrant/mira.bin
+cp ${MIRA_ELF} /vagrant/mira.elf
 
 apt-get install -y nasm
 
